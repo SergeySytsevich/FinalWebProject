@@ -1,6 +1,8 @@
 package com.epam.webproject.controller;
 
 import com.epam.webproject.command.*;
+import com.epam.webproject.content.RequestContent;
+import com.epam.webproject.util.Router;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,33 +16,29 @@ import javax.servlet.http.HttpServletResponse;
 @MultipartConfig
 public class Controller extends HttpServlet{
     private static final Logger LOG = LogManager.getLogger();
-    private final CommandProvider COMMAND_PROVIDER = CommandProvider.getInstance(); 
-    
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        performRequest(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        performRequest(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
-    
-    private void performRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String commandName = request.getParameter(RequestParameter.COMMAND);
-        Command command = COMMAND_PROVIDER.getCommand(commandName);
-        Router router = command.execute(request);
-        switch (router.getRouterType()) {
-            case REDIRECT:
-                response.sendRedirect(router.getPage());
-                break;
-            case FORWARD:
-                RequestDispatcher dispatcher = request.getRequestDispatcher(router.getPage());
-                dispatcher.forward(request, response);
-                break;
-            default:
-                LOG.error("router type isn´t correct" + router.getRouterType());
-                response.sendRedirect(PageNavigator.ERROR_PAGE);
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AbstractCommand abstractCommand;
+        RequestContent requestContent = new RequestContent();
+        requestContent.extractValues(request);
+        abstractCommand = new CommandFactory().initializeCommand(requestContent);
+        Router router = abstractCommand.execute(requestContent);
+        requestContent.insertValues(request);
+        if (RouterType.FORWARD.equals(router.getType())) {
+            request.getRequestDispatcher(router.getPath()).forward(request, response);
+        } else if (RouterType.REDIRECT.equals(router.getType())) {
+            response.sendRedirect(router.getPath());
+        } else {
+            response.sendRedirect(router.getPath());
         }
     }
 }

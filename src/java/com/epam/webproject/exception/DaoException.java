@@ -2,11 +2,20 @@
 package com.epam.webproject.exception;
 
 
-public class DaoException extends Exception{
-    public DaoException(String message) {
+public class DAOException extends Exception{
+    public DAOException() {
+        super();
+    }
+
+    public DAOException(String message) {
         super(message);
     }
-    public DaoException(String message, Throwable cause) {
+
+    public DAOException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    public DAOException(Throwable cause) {
+        super(cause);
     }
 }

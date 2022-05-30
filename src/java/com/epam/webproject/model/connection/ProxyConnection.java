@@ -1,25 +1,11 @@
 package com.epam.webproject.model.connection;
 
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.CallableStatement;
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.NClob;
-import java.sql.PreparedStatement;
-import java.sql.SQLClientInfoException;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
-import java.sql.Savepoint;
-import java.sql.Statement;
-import java.sql.Struct;
+import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class ProxyConnection implements Connection{
+public class ProxyConnection implements Connection {
     private Connection connection;
 
     ProxyConnection(Connection connection) {
@@ -32,23 +18,23 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public PreparedStatement prepareStatement(String string) throws SQLException {
-        return connection.prepareStatement(string);
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
+        return connection.prepareStatement(sql);
     }
 
     @Override
-    public CallableStatement prepareCall(String string) throws SQLException {
-        return connection.prepareCall(string);
+    public CallableStatement prepareCall(String sql) throws SQLException {
+        return connection.prepareCall(sql);
     }
 
     @Override
-    public String nativeSQL(String string) throws SQLException {
-        return connection.nativeSQL(string);
+    public String nativeSQL(String sql) throws SQLException {
+        return connection.nativeSQL(sql);
     }
 
     @Override
-    public void setAutoCommit(boolean bln) throws SQLException {
-        connection.setAutoCommit(bln);
+    public void setAutoCommit(boolean autoCommit) throws SQLException {
+        connection.setAutoCommit(autoCommit);
     }
 
     @Override
@@ -68,7 +54,11 @@ public class ProxyConnection implements Connection{
 
     @Override
     public void close() throws SQLException {
-        ConnectionPool.getInstance().releaseConnection(this);
+        connection.close();
+    }
+
+    void realClose() throws SQLException {
+        connection.close();
     }
 
     @Override
@@ -82,8 +72,8 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public void setReadOnly(boolean bln) throws SQLException {
-        connection.setReadOnly(bln);
+    public void setReadOnly(boolean readOnly) throws SQLException {
+        connection.setReadOnly(readOnly);
     }
 
     @Override
@@ -92,8 +82,8 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public void setCatalog(String string) throws SQLException {
-        connection.setCatalog(string);
+    public void setCatalog(String catalog) throws SQLException {
+        connection.setCatalog(catalog);
     }
 
     @Override
@@ -102,8 +92,8 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public void setTransactionIsolation(int value) throws SQLException {
-        connection.setTransactionIsolation(value);
+    public void setTransactionIsolation(int level) throws SQLException {
+        connection.setTransactionIsolation(level);
     }
 
     @Override
@@ -122,18 +112,18 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public Statement createStatement(int resultType, int resultConcurrency) throws SQLException {
-        return connection.createStatement(resultType, resultConcurrency);
+    public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
+        return connection.createStatement(resultSetType, resultSetConcurrency);
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int resultType, int resultConcurrency) throws SQLException {
-        return connection.prepareStatement(sql, resultType, resultConcurrency);
+    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+        return connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
     }
 
     @Override
-    public CallableStatement prepareCall(String sql, int resultType, int resultConcurrency) throws SQLException {
-        return connection.prepareCall(sql, resultType, resultConcurrency);
+    public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+        return connection.prepareCall(sql, resultSetType, resultSetConcurrency);
     }
 
     @Override
@@ -162,13 +152,13 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public Savepoint setSavepoint(String string) throws SQLException {
-        return connection.setSavepoint(string);
+    public Savepoint setSavepoint(String name) throws SQLException {
+        return connection.setSavepoint(name);
     }
 
     @Override
     public void rollback(Savepoint savepoint) throws SQLException {
-        connection.rollback(savepoint);
+        connection.rollback();
     }
 
     @Override
@@ -177,23 +167,23 @@ public class ProxyConnection implements Connection{
     }
 
     @Override
-    public Statement createStatement(int resultType, int resultConcurrency, int resultHoldability) throws SQLException {
-        return connection.createStatement(resultType, resultConcurrency, resultHoldability);
+    public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+        return connection.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int resultType, int resultConcurrency, int resultHoldability) throws SQLException {
-        return connection.prepareStatement(sql, resultType, resultConcurrency, resultHoldability);
+    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+        return connection.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
     @Override
-    public CallableStatement prepareCall(String sql, int resultType, int resultConcurrency, int resultHoldability) throws SQLException {
-        return connection.prepareCall(sql, resultType, resultConcurrency, resultHoldability);
+    public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+        return connection.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int keys) throws SQLException {
-        return connection.prepareStatement(sql, keys);
+    public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException {
+        return connection.prepareStatement(sql, autoGeneratedKeys);
     }
 
     @Override
@@ -295,5 +285,4 @@ public class ProxyConnection implements Connection{
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return connection.isWrapperFor(iface);
     }
-    
 }
