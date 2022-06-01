@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Level;
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-//import com.google.gson.JsonObject; - FIXME- как использовать и зачем он?
+
 
 
 public class RequestContent {
