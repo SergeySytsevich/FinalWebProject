@@ -1,4 +1,3 @@
-
 package com.epam.webproject.content;
 
 import com.epam.webproject.constant.GeneralConstant.CommonConstant;
@@ -6,12 +5,9 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Level;
-
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-
 
 public class RequestContent {
     private static final Logger LOGGER = LogManager.getLogger(RequestContent.class);
