@@ -88,4 +88,55 @@ public class GeneralConstant {
         public static final String EN = "EN";
         public static final String RU = "RU";
     }
+    
+    public static class CommandConstant {
+        public static final String ADD_ROOM_FORM = "/mainController?command=add_room_form";
+        public static final String ADD_USER_FORM = "/mainController?command=open_add_user_form";
+        public static final String OPEN_ALL_USERS = "/mainController?command=open_all_users";
+        public static final String OPEN_INCOMING_APPS = "/mainController?open_incoming_apps";
+        public static final String OPEN_DELETE_ROOM_FORM = "/mainController?command=open_delete_room_form";
+        public static final String OPEN_LOGIN_SETTING = "/mainController?command=open_login_setting";
+        public static final String OPEN_PASSWORD_SETTING = "/mainController?command=open_password_setting";
+        public static final String OPEN_BALANCE_FORM = "/mainController?command=open_balance_form";
+        public static final String OPEN_CLIENT_PENDING_APPS = "/mainController?command=open_client_pending_apps";
+    }
+    
+    public static class BusyDateSQLConstant {
+        public static final String ARRIVAL_TIME = "arrival_time";
+        public static final String RELEASE_TIME = "release_time";
+    }
+
+    public static class OrderSQLConstant {
+        public static final String IS_APPROVED = "is_approved";
+        public static final String IS_REJECTED = "is_rejected";
+        public static final String COST = "cost";
+        public static final String ORDER_ID = "order_id";
+    }
+    
+    public static class RoomPageConstant {
+        public static final String BED_NUMBER = "rooms-number";
+        public static final String STAR_NUMBER = "stars-number";
+        public static final String PRICE_NUMBER = "price-number";
+        public static final String WIFI = "wifi-number";
+        public static final String ARRIVING_DATE = "arriving-date";
+        public static final String LEAVING_DATE = "leaving-date";
+        public static final String ARRIVAL_TIME = "arrivalTime";
+        public static final String LEAVING_TIME = "leavingTime";
+        public static final String ID = "id";
+        public static final String BED = "beds";
+        public static final String STAR = "stars";
+        public static final String PRICE = "price";
+        public static final String WIFI_LABEL = "wifi";
+        public static final String ARRIVE = "arriveDate";
+        public static final String LEAVE = "leaveDate";
+        public static final String DESCRIPTION = "description";
+        public static final String TYPE = "type";
+    }
+    
+    public static class AdminConstant {
+        public static final String ADD_ROOM_FORM = "addRoomForm";
+        public static final String ADD_USER_FORM = "addUserForm";
+        public static final String DELETE_ROOM_FORM = "deleteRoomForm";
+        public static final String ALL_ROOMS = "allRooms";
+    }
 }
