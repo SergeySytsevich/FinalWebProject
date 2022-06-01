@@ -30,4 +30,5 @@ public class BusyDate extends Entity {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+    // FIXME IN ALL Entities : equals, hashcode & tostring 
 }

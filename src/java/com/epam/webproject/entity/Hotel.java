@@ -136,5 +136,5 @@ public class Hotel extends Entity{
     public void setWebSite(String webSite) {
         this.webSite = webSite;
     }
-     
+    // FIXME IN ALL Entities : equals, hashcode & tostring 
 }

@@ -58,4 +58,5 @@ public class Order extends Entity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+    // FIXME IN ALL Entities : equals, hashcode & tostring 
 }

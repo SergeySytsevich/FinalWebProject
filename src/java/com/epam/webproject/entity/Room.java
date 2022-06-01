@@ -67,4 +67,5 @@ public class Room extends Entity {
     public void setDescription(String description) {
         this.description = description;
     }
+    // FIXME IN ALL Entities : equals, hashcode & tostring 
 }
